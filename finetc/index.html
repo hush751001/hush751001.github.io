@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar" content="black">
+  <title>테스트</title>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <script src="//code.jquery.com/jquery-3.4.1.js"></script>
+  <script src="./test.js"></script>
+</head>
+
+<body>
+  <div>
+    <p>
+      <label>
+        <span>숫자만</span>
+        <input class="onlyNumber" placeholder="숫자만" />
+      </label>
+    </p>
+    <p>
+      <label>
+        <span>영문자만</span>
+        <input class="onlyAlpha" placeholder="영문자만" />
+      </label>
+    </p>
+    <p>
+      <label>
+        <span>숫자,영문자만</span>
+        <input class="onlyAlphaNumber" placeholder="숫자,영문자만" />
+      </label>
+    </p>
+    <p>
+      <label>
+        <span>한글만</span>
+        <input class="onlyHangul" placeholder="한글만" />
+      </label>
+    </p>
+    <p>
+      <label>
+        <span>한글,영문자,숫자만</span>
+        <input class="notSpecial" placeholder="특수문자 입력안됨" />
+      </label>
+    </p>
+    <p>
+      <label>
+        <span>사용자 패턴</span>
+        <input data-pattern="[^a-zA-Z0-9_ ]" placeholder="사용자패턴, 영문,숫자,_,공백만" />
+      </label>
+    </p>
+  </div>
+</body>
+
+</html>

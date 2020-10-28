@@ -13,6 +13,6 @@ window.addEventListener('message', function (e) {
       sourceWebviewID: sourceWebviewID,
       data: e.data,
     };
-    iframe.contentWindow.postMessage(JSON.stringify(message));
+    iframe.contentWindow.postMessage(message);
   }
 });

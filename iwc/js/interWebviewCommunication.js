@@ -52,7 +52,7 @@
     );
   }
 
-  function execute(targetWebviewID, reqString) {
+  function execute(targetWebviewID, req) {
     function traverse(obj) {
       for (var k in obj) {
         if (obj[k] && typeof obj[k] === 'object') {
@@ -76,7 +76,6 @@
       }
     }
 
-    var req = JSON.parse(reqString);
     var functionName = global[req.namespace][req.functionName];
     var params = JSON.parse(req.params);
     params = params.map(function (param) {
@@ -136,17 +135,13 @@
 
       // TODO: Native에서 던진 message를 받는다.
       window.addEventListener('message', function (e) {
-        var message = {};
-        try {
-          if (typeof e.data === 'string') {
-            message = JSON.parse(e.data);
-          } else {
-            message = e.data;
-          }
-        } catch (e) {}
-
+        var message = e.data;
         if (message.data) {
-          execute(message.sourceWebviewID, message.data);
+          var req = message.data;
+          if (typeof message.data === 'string') {
+            req = JSON.parse(message.data);
+          }
+          execute(message.sourceWebviewID, req);
         }
       });
     },

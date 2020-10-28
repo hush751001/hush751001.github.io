@@ -133,6 +133,18 @@
     setWebviewID: function (webviewID) {
       IWC.webviewID = webviewID;
 
+      if (window.android && window.android.invoke) {
+        window.android.setWebviewID.postMessage(webviewID);
+      }
+      // ios bridge일때
+      else if (
+        window.webkit &&
+        window.webkit.messageHandlers &&
+        window.webkit.messageHandlers.setWebviewID
+      ) {
+        window.webkit.messageHandlers.setWebviewID.postMessage(webviewID);
+      }
+
       // TODO: Native에서 던진 message를 받는다.
       window.addEventListener('message', function (e) {
         var message = e.data;

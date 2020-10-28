@@ -138,7 +138,11 @@
       window.addEventListener('message', function (e) {
         var message = {};
         try {
-          message = JSON.parse(e.data);
+          if (typeof e.data === 'string') {
+            message = JSON.parse(e.data);
+          } else {
+            message = e.data;
+          }
         } catch (e) {}
 
         if (message.data) {

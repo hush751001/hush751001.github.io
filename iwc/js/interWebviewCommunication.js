@@ -107,14 +107,27 @@
     req.params = makeParamsString.apply(null, req.params);
     var reqString = JSON.stringify(req);
 
-    // invokeWebviewMethod(req.targetWebviewID, reqString);
-    // TODO: Native 호출
     // android bridge일때
-
+    if (window.android && window.android.invoke) {
+      window.android.invoke.postMessage({
+        targetWebviewID: req.targetWebviewID,
+        data: reqString,
+      });
+    }
     // ios bridge일때
-
-    // iframe일때
-    parent.postMessage(reqString, '*');
+    else if (
+      window.webkit &&
+      window.webkit.messageHandlers &&
+      window.webkit.messageHandlers.invoke
+    ) {
+      window.webkit.messageHandlers.invoke.postMessage({
+        targetWebviewID: req.targetWebviewID,
+        data: reqString,
+      });
+    } else {
+      // iframe일때
+      parent.postMessage(reqString, '*');
+    }
   }
 
   var IWC = {
